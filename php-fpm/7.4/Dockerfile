@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.4.1-fpm
 
 # 拷贝物资
 COPY xdebug-2.9.0.tgz /tmp
