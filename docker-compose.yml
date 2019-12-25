@@ -38,6 +38,18 @@ services:
         networks:
             - default
 
+    php-fpm-7.2:
+        build:
+            context: ./php-fpm/7.2
+        volumes:
+            - ./proj:/var/www/html
+            - ./logs/php-fpm:/var/log/php-fpm
+        cap_add:
+            - SYS_PTRACE
+        restart: always
+        networks:
+            - default
+
    mysql:
        build:
            context: ./mysql
