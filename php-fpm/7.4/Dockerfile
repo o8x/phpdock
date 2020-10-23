@@ -1,4 +1,4 @@
-FROM php:7.4.1-fpm
+FROM php:7.4.11-fpm-buster
 
 # 拷贝物资
 COPY xdebug-2.9.0.tgz /tmp
@@ -38,5 +38,16 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 # 复制 php.ini
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
+# 配置日志输出
+RUN mkdir /var/log/php-fpm/ && \
+	touch /var/log/php-fpm/error.log && \
+	touch /var/log/php-fpm/access.log && \
+    rm -rf /usr/local/etc/php-fpm.d/docker.conf && \
+    ln -sf /dev/stdout /var/log/php-fpm/access.log && \
+    ln -sf /dev/stderr /var/log/php-fpm/error.log
+
+COPY www.conf /usr/local/etc/php-fpm.d/docker.conf
+
 # 打印 php 版本
-RUN echo "\n\033[44;30m$(php --version)\033[0m\n"
+RUN echo "\n\033[44;30m$(php --version)\033[0m"
