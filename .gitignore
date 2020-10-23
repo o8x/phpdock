@@ -4,7 +4,7 @@
 
 # IntelliJ project files
 .idea
-data.d/mysql/*
-proj/*
+mysql/data.d/*
+workspace/*
 logs/nginx/*
 logs/php-fpm/*
